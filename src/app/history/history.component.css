@@ -1,0 +1,28 @@
+.history-container {
+  max-width: 900px;
+  margin: 50px auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.history-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.history-item p {
+  margin: 5px 0;
+}
+
+.history-item audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.date {
+  font-size: 0.85em;
+  color: #777;
+  text-align: right;
+}

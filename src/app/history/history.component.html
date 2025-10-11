@@ -1,0 +1,13 @@
+<div class="history-container">
+  <h2>🕒 Historique des résumés</h2>
+
+  <div *ngIf="loading">Chargement...</div>
+  <div *ngIf="!loading && history.length === 0">Aucun résumé disponible</div>
+
+  <div *ngFor="let item of history" class="history-item">
+    <p><strong>Texte :</strong> {{ item.original_text }}</p>
+    <p><strong>Résumé :</strong> {{ item.summary }}</p>
+    <audio controls [src]="'http://localhost:5000' + item.audio_url"></audio>
+    <p class="date">{{ item.created_at | date:'short' }}</p>
+  </div>
+</div>

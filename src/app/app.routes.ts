@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { provideRouter } from '@angular/router';
+import { AnalysisComponent } from './analysis/analysis.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,11 @@ export const routes: Routes = [
     path: 'history',
     loadComponent: () => import('./history/history.component').then(m => m.HistoryComponent),
     title: 'Historique des documents'
+  },
+  {
+    path: 'analysis',
+    loadComponent: () => import('./analysis/analysis.component').then(m => m.AnalysisComponent),
+    title: 'Analyse des documents'
   },
   {
     path: '**',

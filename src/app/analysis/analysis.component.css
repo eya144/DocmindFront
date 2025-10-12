@@ -1,0 +1,20 @@
+.container {
+  max-width: 900px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  min-width: 180px;
+}
+
+.qa-section {
+  margin-top: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

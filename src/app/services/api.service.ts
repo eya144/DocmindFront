@@ -44,5 +44,11 @@ export class ApiService {
   uploadFile(formData: FormData): Observable<{ text: string }> {
   return this.http.post<{ text: string }>(`${this.baseUrl}/upload`, formData);
 }
+chatRAG(question: string): Observable<any> {
+  return this.http.post(`${this.baseUrl}/chat_rag`, { question });
+}
+
+
+
 
 }

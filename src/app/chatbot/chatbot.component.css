@@ -1,0 +1,127 @@
+/* Import de Google Fonts pour un look moderne */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.ai-analyzer {
+    max-width: 900px; /* Légèrement plus large pour l'espace */
+    margin: auto;
+    font-family: "Poppins", sans-serif;
+}
+
+.title {
+    font-weight: 700; /* Plus de poids pour le titre */
+    color: #1a1a1a;
+}
+
+/* Zone d'Input Améliorée */
+.input-area {
+    border: 1px solid #ddd;
+    border-radius: 16px;
+}
+
+.input-area .card-title {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #bbb;
+}
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eee;
+}
+.divider:not(:empty)::before {
+    margin-right: .5em;
+}
+.divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+
+textarea {
+    resize: vertical;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 15px;
+    transition: all 0.3s;
+    border: 1px solid #ccc;
+}
+textarea:focus {
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1); /* Anneau de focus plus subtil */
+    border-color: #007bff;
+}
+
+/* Boutons d'action */
+.btn-action {
+    border-radius: 25px; /* Forme pilule pour les actions */
+    font-weight: 600;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+}
+.btn-action i {
+    font-size: 1.1em;
+}
+
+button {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre plus douce */
+}
+
+/* Cartes de résultats */
+.card {
+    border-radius: 16px; /* Coins plus arrondis */
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #eee; /* Bordure par défaut */
+}
+
+.card-header {
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 1rem 1.5rem;
+    border-bottom: none;
+}
+
+.list-group-item {
+    padding: 1rem 1.5rem;
+}
+
+/* Styles spécifiques pour les bordures de résultat */
+.result-card.border-primary { border-left: 5px solid #007bff; }
+.result-card.border-info { border-left: 5px solid #17a2b8; }
+.result-card.border-warning { border-left: 5px solid #ffc107; }
+.result-card.border-success { border-left: 5px solid #28a745; }
+.result-card.border-dark { border-left: 5px solid #343a40; }
+
+
+.keyword-badge {
+    border-radius: 20px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.wordcloud-section img {
+    max-height: 450px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 10px !important;
+}
+
+.fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; /* Animation plus douce */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

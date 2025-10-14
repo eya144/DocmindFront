@@ -1,0 +1,105 @@
+<div class="ai-analyzer container mt-5">
+  <h2 class="title text-center mb-5">🤖 Analyse intelligente de document</h2>
+
+  <div class="card p-4 shadow-lg mb-5 input-area">
+    <h3 class="card-title text-center mb-4">Source du document</h3>
+
+    <div class="upload-card mb-4 p-3 border rounded">
+      <label class="form-label fw-semibold d-flex align-items-center mb-2">
+        <i class="bi bi-upload me-2"></i> 📄 Importez un fichier (PDF, DOCX, TXT)
+      </label>
+      <div class="input-group">
+        <input type="file" (change)="onFileSelected($event)" class="form-control" accept=".pdf,.docx,.txt">
+        <button class="btn btn-primary" (click)="uploadAndProcess()" [disabled]="!selectedFile || loading">
+          <span *ngIf="!loading">Analyser</span>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+          <span *ngIf="loading">Analyse...</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="divider text-center my-3">
+      <span class="text-muted fw-bold">OU</span>
+    </div>
+
+    <label class="form-label fw-semibold d-flex align-items-center mb-2">
+      <i class="bi bi-text-left me-2"></i> 📘 Collez ou modifiez le texte ici
+    </label>
+    <textarea [(ngModel)]="text" rows="7" class="form-control shadow-sm"
+      placeholder="Collez votre contenu à analyser..."></textarea>
+  </div>
+
+  <div class="action-buttons d-flex flex-wrap justify-content-center gap-3 mb-5 p-3 rounded-3 bg-light shadow-sm">
+    <button class="btn btn-action btn-success px-4" (click)="generateSummary()" [disabled]="!text">
+      <i class="bi bi-journal-text me-2"></i> Générer Résumé
+    </button>
+    <button class="btn btn-action btn-info px-4" (click)="analyzeText()" [disabled]="!text">
+      <i class="bi bi-search me-2"></i> Analyser Entités
+    </button>
+    <button class="btn btn-action btn-warning px-4" (click)="generateWordCloud()" [disabled]="!text">
+      <i class="bi bi-cloud me-2"></i> Nuage de Mots
+    </button>
+  </div>
+  
+  <h3 *ngIf="summary || entities.length || keywords.length || wordcloud" class="text-center mb-4 text-primary">Résultats de l'Analyse</h3>
+
+  <div *ngIf="summary" class="card result-card shadow-lg mb-4 fade-in border-primary">
+    <div class="card-header bg-primary text-white fw-semibold d-flex align-items-center">
+      <i class="bi bi-lightbulb-fill me-2"></i> 🧠 Résumé Généré
+    </div>
+    <div class="card-body text-muted">{{ summary }}</div>
+    <div *ngIf="audioUrl" class="card-footer text-center bg-light">
+      <audio controls [src]="audioUrl" class="w-100"></audio>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="entities.length" class="card shadow-lg mb-4 fade-in border-info">
+    <div class="card-header bg-info text-white fw-semibold d-flex align-items-center">
+      <i class="bi bi-person-badge-fill me-2"></i> 🔎 Entités Détectées
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let e of entities" class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="text-break">{{ e.text }}</span>
+        <span class="badge bg-secondary text-white ms-3">{{ e.label }}</span>
+      </li>
+    </ul>
+  </div> -->
+
+  <div *ngIf="wordcloud" class="card shadow-lg mb-4 fade-in border-warning">
+    <div class="card-header bg-warning text-dark fw-semibold d-flex align-items-center">
+      <i class="bi bi-cloud-fill me-2"></i> 🌥️ Nuage de mots
+    </div>
+    <div class="card-body text-center wordcloud-section">
+      <img [src]="wordcloud" class="img-fluid rounded shadow-sm border" alt="Nuage de mots généré">
+    </div>
+  </div>
+
+  <div *ngIf="keywords.length" class="card shadow-lg mb-5 fade-in border-success">
+    <div class="card-header bg-success text-white fw-semibold d-flex align-items-center">
+      <i class="bi bi-tags-fill me-2"></i> 🏷️ Mots-clés
+    </div>
+    <div class="card-body">
+      <span *ngFor="let k of keywords" class="badge bg-light text-dark border border-success me-2 mb-2 p-2 keyword-badge">{{ k }}</span>
+    </div>
+  </div>
+
+  <div class="card shadow-lg fade-in border-dark">
+    <div class="card-header bg-dark text-white fw-semibold d-flex align-items-center">
+      <i class="bi bi-chat-dots-fill me-2"></i> 💬 Questions & Réponses
+    </div>
+    <div class="card-body">
+      <input [(ngModel)]="question" placeholder="Posez votre question ici..." class="form-control form-control-lg mb-3">
+      <div class="d-flex gap-3">
+        <button class="btn btn-primary flex-fill btn-lg" (click)="askQuestion()">
+          <i class="bi bi-cpu-fill me-2"></i> Q&A
+        </button>
+        <button class="btn btn-secondary flex-fill btn-lg" (click)="askRAG()">
+          <i class="bi bi-link-45deg me-2"></i> Chat RAG
+        </button>
+      </div>
+      <div *ngIf="answer" class="alert alert-light border border-secondary mt-3 fade-in p-3">
+        <strong>IA :</strong> {{ answer }}
+      </div>
+    </div>
+  </div>
+</div>

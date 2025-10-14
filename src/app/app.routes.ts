@@ -23,6 +23,11 @@ export const routes: Routes = [
     loadComponent: () => import('./analysis/analysis.component').then(m => m.AnalysisComponent),
     title: 'Analyse des documents'
   },
+    {
+    path: 'chatbot',
+    loadComponent: () => import('./chatbot/chatbot.component').then(m => m.ChatbotComponent),
+    title: 'chatbot'
+  },
   {
     path: '**',
     redirectTo: 'upload'

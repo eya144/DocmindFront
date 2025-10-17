@@ -1,0 +1,29 @@
+<div class="bot-card">
+  <h2>Image Bot (Groq + Generator)</h2>
+
+  <label>Prompt</label>
+  <textarea [(ngModel)]="prompt" rows="5" placeholder="Décris l’image à générer..."></textarea>
+
+  <div class="row">
+    <label><input type="checkbox" [(ngModel)]="enhance" /> Améliorer le prompt (Groq)</label>
+  </div>
+
+  <div class="row">
+    <label>Largeur</label>
+    <input type="number" [(ngModel)]="width" min="256" step="64" />
+    <label>Hauteur</label>
+    <input type="number" [(ngModel)]="height" min="256" step="64" />
+  </div>
+
+  <button (click)="generate()" [disabled]="loading || !prompt.trim()"> 
+    {{ loading ? 'Génération...' : 'Générer l’image' }}
+  </button>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <div *ngIf="resultImg" class="result">
+    <h3>Résultat</h3>
+    <img [src]="resultImg" alt="generated" />
+    <p class="used"><strong>Prompt utilisé :</strong> {{ usedPrompt }}</p>
+  </div>
+</div>

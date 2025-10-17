@@ -28,6 +28,12 @@ export const routes: Routes = [
     loadComponent: () => import('./chatbot/chatbot.component').then(m => m.ChatbotComponent),
     title: 'chatbot'
   },
+    {
+    path: 'image-bot',
+    loadComponent: () =>
+      import('./features/image-bot/image-bot.component')
+        .then(m => m.ImageBotComponent)
+  },
   {
     path: '**',
     redirectTo: 'upload'

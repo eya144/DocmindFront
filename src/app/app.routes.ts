@@ -1,6 +1,5 @@
-import { Routes } from '@angular/router';
-import { provideRouter } from '@angular/router';
-import { AnalysisComponent } from './analysis/analysis.component';
+import { Routes , provideRouter} from '@angular/router';
+
 
 export const routes: Routes = [
   {

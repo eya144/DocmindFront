@@ -23,7 +23,7 @@ export class ChatbotComponent {
   loading = false;
   
 
-  constructor(private api: ApiService) {}
+  constructor(private readonly api: ApiService) {}
 
   // --- Upload & Extraction du texte ---
   onFileSelected(event: any) {

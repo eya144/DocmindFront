@@ -3,6 +3,8 @@ import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+type RagSource = { tag: string; citation: string; preview: string };
+
 @Component({
   selector: 'app-chatbot',
   standalone: true,
@@ -20,8 +22,8 @@ export class ChatbotComponent {
   wordcloud = '';
   question = '';
   answer = '';
+  sources: RagSource[] = [];  // <-- citations RAG
   loading = false;
-  
 
   constructor(private readonly api: ApiService) {}
 
@@ -51,8 +53,11 @@ export class ChatbotComponent {
 
   // --- Résumé + Audio ---
   generateSummary() {
+    if (!this.text.trim()) return;
     this.loading = true;
-    this.api.processFile(this.createFormDataFromText(this.text)).subscribe({
+    // On transforme le texte en "fichier" pour réutiliser /process
+    const formData = this.createFormDataFromText(this.text);
+    this.api.processFile(formData).subscribe({
       next: (res) => {
         this.summary = res.summary;
         this.audioUrl = `http://localhost:5000${res.audio_url}`;
@@ -100,13 +105,17 @@ export class ChatbotComponent {
     });
   }
 
-  // --- Q&A classique ---
+  // --- Q&A "classique" (utilise /qa → backend choisit RAG si libs ok) ---
   askQuestion() {
     if (!this.text.trim() || !this.question.trim()) return;
     this.loading = true;
+    this.sources = [];
+    this.answer = '';
+
     this.api.askQuestion(this.text, this.question).subscribe({
       next: (res) => {
         this.answer = res.answer;
+        this.sources = res.sources || []; // si backend RAG actif
         this.loading = false;
       },
       error: (err) => {
@@ -116,13 +125,24 @@ export class ChatbotComponent {
     });
   }
 
-  // --- Chat RAG (si backend RAG actif) ---
+  // --- Chat RAG (même /qa, avec texte) ---
+  // On garde un bouton séparé pour l'UX, mais c'est le même appel que askQuestion
   askRAG() {
+    if (!this.text.trim()) {
+      alert('Veuillez fournir un texte (ou importer un fichier) pour le RAG.');
+      return;
+    }
     if (!this.question.trim()) return;
+
     this.loading = true;
-    this.api.chatRAG(this.question).subscribe({
+    this.sources = [];
+    this.answer = '';
+
+    // Même endpoint /qa : le backend applique Chunking + FAISS + Top-K + Citations si dispo
+    this.api.askQuestion(this.text, this.question).subscribe({
       next: (res) => {
         this.answer = res.answer;
+        this.sources = res.sources || [];
         this.loading = false;
       },
       error: (err) => {

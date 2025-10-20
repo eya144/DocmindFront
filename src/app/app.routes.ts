@@ -4,7 +4,7 @@ import { Routes , provideRouter} from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'upload',
+    redirectTo: 'chatbot',
     pathMatch: 'full'
   },
   {
@@ -35,7 +35,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'upload'
+    redirectTo: 'chatbot'
   }
 ];
 
